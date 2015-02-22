@@ -260,6 +260,7 @@ MainInterface::MainInterface( intf_thread_t *_p_intf ) : QVLCMW( _p_intf )
     if( b_minimalView )
         toggleMinimalView( true );
 
+    stateBeforeFullScreen = windowState();
     setMaximumSize( QSize( 16386, 16386 ) );
     computeMinimumSize();
 }
@@ -1489,10 +1490,14 @@ void MainInterface::toolBarConfUpdated()
 
 void MainInterface::setInterfaceFullScreen( bool fs )
 {
-    if( fs )
+    if( fs ) {
+        stateBeforeFullScreen = windowState();
         setWindowState( windowState() | Qt::WindowFullScreen );
-    else
-        setWindowState( windowState() & ~Qt::WindowFullScreen );
+    }
+    else {
+        showNormal();
+	setWindowState(stateBeforeFullScreen);
+    }
 }
 void MainInterface::toggleInterfaceFullScreen()
 {

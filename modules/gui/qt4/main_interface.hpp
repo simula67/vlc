@@ -178,6 +178,7 @@ private:
 
     bool                 b_hasPausedWhenMinimized;
     bool                 b_statusbarVisible;
+    Qt::WindowStates     stateBeforeFullScreen;  ///< Windows state before fullscreen
 
 #ifdef _WIN32
     HWND WinId( QWidget *);
